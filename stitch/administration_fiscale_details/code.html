@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Administration Fiscale de la Haute-Garonne - 31</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Public+Sans:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#4e6874",
+                        "on-secondary-fixed-variant": "#304a55",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#001946",
+                        "secondary": "#48626e",
+                        "surface-container": "#edeeef",
+                        "on-tertiary-fixed-variant": "#8a182f",
+                        "outline-variant": "#c4c6d1",
+                        "surface-bright": "#f8f9fa",
+                        "surface-variant": "#e1e3e4",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-primary-container": "#738ac6",
+                        "surface-container-low": "#f3f4f5",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#d9dadb",
+                        "on-primary": "#ffffff",
+                        "on-background": "#191c1d",
+                        "secondary-fixed-dim": "#afcbd8",
+                        "secondary-container": "#cbe7f5",
+                        "tertiary": "#280006",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "error-container": "#ffdad6",
+                        "surface": "#f8f9fa",
+                        "on-tertiary-container": "#e55e6f",
+                        "on-surface": "#191c1d",
+                        "error": "#ba1a1a",
+                        "primary": "#000d2c",
+                        "outline": "#757781",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#2c457c",
+                        "on-secondary-fixed": "#021f29",
+                        "background": "#f8f9fa",
+                        "primary-container": "#002157",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#d9e2ff",
+                        "on-surface-variant": "#44464f",
+                        "inverse-primary": "#b0c6ff",
+                        "surface-tint": "#455d95",
+                        "tertiary-fixed-dim": "#ffb2b7",
+                        "on-tertiary-fixed": "#40000e",
+                        "tertiary-fixed": "#ffdadb",
+                        "tertiary-container": "#500014",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container-high": "#e7e8e9",
+                        "secondary-fixed": "#cbe7f5",
+                        "inverse-surface": "#2e3132"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Public Sans"],
+                        "label": ["Public Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        h1, h2, h3, .serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .editorial-gradient {
+            background: linear-gradient(135deg, #000d2c 0%, #002157 100%);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none h-20">
+<div class="flex justify-between items-center px-8 h-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-6">
+<div class="text-xl font-bold uppercase tracking-widest text-blue-900 dark:text-blue-100 flex flex-col leading-none">
+<span>République</span>
+<span class="ml-4">Française</span>
+</div>
+<div class="h-10 w-px bg-outline-variant/30 hidden md:block"></div>
+<div class="hidden lg:flex gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300 font-medium" href="#">Fiscalité</a>
+<a class="text-blue-900 dark:text-blue-100 border-b-2 border-red-800 font-bold pb-1" href="#">Particuliers</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300 font-medium" href="#">Entreprises</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300 font-medium" href="#">Documentation</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors rounded-full">
+<span class="material-symbols-outlined text-blue-900" data-icon="language">language</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded hover:bg-primary-container transition-all">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="text-sm font-semibold">Mon Espace</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-20 min-h-screen">
+<!-- Hero Section -->
+<header class="editorial-gradient py-20 px-8 text-on-primary relative overflow-hidden">
+<div class="max-w-7xl mx-auto relative z-10">
+<nav class="mb-8 flex items-center gap-2 text-primary-fixed-dim/70 text-sm">
+<a class="hover:text-white" href="#">Accueil</a>
+<span class="material-symbols-outlined text-xs" data-icon="chevron_right">chevron_right</span>
+<a class="hover:text-white" href="#">Directions Départementales</a>
+<span class="material-symbols-outlined text-xs" data-icon="chevron_right">chevron_right</span>
+<span class="text-white">Haute-Garonne (31)</span>
+</nav>
+<h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4 leading-tight">
+                    Administration Fiscale <br/>
+<span class="text-primary-fixed-dim italic">de la Haute-Garonne</span>
+</h1>
+<p class="text-lg text-slate-300 max-w-2xl font-light leading-relaxed">
+                    Direction départementale des Finances publiques (DDFiP) de la Haute-Garonne au service des citoyens et du développement économique régional.
+                </p>
+</div>
+<!-- Decorative Element -->
+<div class="absolute right-0 bottom-0 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[30rem]" data-icon="account_balance">account_balance</span>
+</div>
+</header>
+<section class="max-w-7xl mx-auto px-8 py-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Sidebar: Quick Links -->
+<aside class="lg:col-span-3 space-y-12">
+<nav class="space-y-1">
+<h3 class="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant mb-6">Direction</h3>
+<div class="group cursor-pointer p-4 -mx-4 rounded hover:bg-surface-container-low transition-all">
+<p class="text-xs text-secondary font-semibold mb-1">Directeur Départemental</p>
+<p class="text-primary font-bold">Jean-Marc Vallet</p>
+</div>
+<div class="group cursor-pointer p-4 -mx-4 rounded hover:bg-surface-container-low transition-all">
+<p class="text-xs text-secondary font-semibold mb-1">Secrétariat Général</p>
+<p class="text-primary font-bold">Cabinet de Direction</p>
+</div>
+</nav>
+<div class="space-y-6">
+<h3 class="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant">Services Directs</h3>
+<ul class="space-y-4">
+<li>
+<a class="flex items-center gap-3 text-on-surface hover:text-primary group" href="#">
+<span class="w-8 h-8 flex items-center justify-center rounded bg-secondary-container text-primary material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-medium">Nous contacter</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-on-surface hover:text-primary group" href="#">
+<span class="w-8 h-8 flex items-center justify-center rounded bg-secondary-container text-primary material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-medium">Prendre RDV</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-on-surface hover:text-primary group" href="#">
+<span class="w-8 h-8 flex items-center justify-center rounded bg-secondary-container text-primary material-symbols-outlined" data-icon="map">map</span>
+<span class="font-medium">Carte des centres</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="bg-tertiary-container text-tertiary-fixed p-6 rounded-lg">
+<span class="material-symbols-outlined mb-4" data-icon="warning">warning</span>
+<h4 class="font-bold mb-2">Période de déclaration</h4>
+<p class="text-sm opacity-80 leading-relaxed">
+                        Le service de déclaration en ligne est actuellement ouvert pour la Haute-Garonne jusqu'au 8 juin.
+                    </p>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="lg:col-span-9 space-y-20">
+<!-- Stats Bento Grid -->
+<section>
+<h2 class="text-3xl font-bold text-primary mb-8 border-l-4 border-red-800 pl-6">Indicateurs de la Région</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between aspect-square md:aspect-auto h-48">
+<span class="text-xs font-bold text-secondary uppercase tracking-widest">Contribuables</span>
+<div class="space-y-1">
+<p class="text-4xl font-serif text-primary">845,210</p>
+<p class="text-sm text-on-surface-variant">Foyers fiscaux actifs</p>
+</div>
+</div>
+<div class="bg-primary text-on-primary p-8 rounded-xl flex flex-col justify-between h-48">
+<span class="text-xs font-bold opacity-60 uppercase tracking-widest">Recouvrement Annuel</span>
+<div class="space-y-1">
+<p class="text-4xl font-serif">€4.2B</p>
+<p class="text-sm opacity-60">Contribution territoriale</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between h-48">
+<span class="text-xs font-bold text-secondary uppercase tracking-widest">Taux de Satisfaction</span>
+<div class="space-y-1">
+<p class="text-4xl font-serif text-primary">92%</p>
+<p class="text-sm text-on-surface-variant">Accueil et accompagnement</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Offices and Hours -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div>
+<h2 class="text-2xl font-bold text-primary mb-8">Centres de Contact Principaux</h2>
+<div class="space-y-8">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary" data-icon="location_on">location_on</span>
+<div>
+<h4 class="font-bold text-primary">Cité Administrative de Toulouse</h4>
+<p class="text-on-surface-variant text-sm mt-1 leading-relaxed">
+                                        Bâtiment C, Boulevard Armand Duportal<br/>
+                                        31000 Toulouse
+                                    </p>
+</div>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary" data-icon="location_on">location_on</span>
+<div>
+<h4 class="font-bold text-primary">SIP Muret</h4>
+<p class="text-on-surface-variant text-sm mt-1 leading-relaxed">
+                                        15, Avenue Vincent Auriol<br/>
+                                        31600 Muret
+                                    </p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white p-8 rounded-xl shadow-sm border border-outline-variant/10">
+<h2 class="text-2xl font-bold text-primary mb-6">Horaires d'Ouverture</h2>
+<ul class="space-y-4 text-sm">
+<li class="flex justify-between pb-2 border-b border-outline-variant/10">
+<span class="text-secondary">Lundi — Vendredi</span>
+<span class="font-bold">08:30 – 12:00</span>
+</li>
+<li class="flex justify-between pb-2 border-b border-outline-variant/10">
+<span class="text-secondary">Après-midi (Sur RDV uniquement)</span>
+<span class="font-bold">13:30 – 16:00</span>
+</li>
+<li class="flex justify-between text-error font-medium">
+<span>Samedi &amp; Dimanche</span>
+<span>Fermé</span>
+</li>
+</ul>
+<p class="mt-6 text-xs text-on-surface-variant italic leading-relaxed">
+                            * Les horaires peuvent varier durant les périodes de congés scolaires et jours fériés.
+                        </p>
+</div>
+</section>
+<!-- News Section -->
+<section>
+<div class="flex justify-between items-end mb-8">
+<h2 class="text-3xl font-bold text-primary">Actualités Fiscales 31</h2>
+<a class="text-sm font-bold text-secondary hover:text-primary transition-colors flex items-center gap-1" href="#">
+                            Toute l'actualité <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<article class="group cursor-pointer">
+<div class="overflow-hidden rounded-lg mb-4 h-64 bg-slate-200">
+<img alt="Office view" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Interior of a modern, bright government office with large windows and professional wooden desks in a minimalist setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrovVx2WYqwHRz2BTe2EzAZx1XuRFk7Hbswhb1c-j2998x5IQnefVlg36Ag4yTxbWioDc1CS6mD3ZksS3kpyeIvIysA4PekNi9HBDo-cGVw2SCGLC5DmdycTSaPrCnUiyuPPgbnDwAIgfBQv_HkAv0NvvaOpqB4lrsHvrpDVZjxyl9c4-nFuZdtevUgIF2w-jNs8X0j5BB-pRKPPrqGYE34TYC4ftzYG9g9EQT97-p08uGnAL5AmSl_GX1SoBdVXNKBIE8D9K7NK1S"/>
+</div>
+<span class="text-xs font-bold text-red-800 uppercase tracking-widest">Fiscalité locale</span>
+<h3 class="text-xl font-bold text-primary mt-2 group-hover:underline">Révision des valeurs locatives en Haute-Garonne pour 2024</h3>
+<p class="text-on-surface-variant text-sm mt-3 leading-relaxed">
+                                Les nouvelles directives concernant la taxe foncière ont été publiées pour les communes de la première couronne toulousaine.
+                            </p>
+</article>
+<article class="group cursor-pointer">
+<div class="overflow-hidden rounded-lg mb-4 h-64 bg-slate-200">
+<img alt="Meeting" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up of professionals having a collaborative meeting around a table with tablets and documents in a soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXl5F55rw1vjliGsmM2mIIEMWmGeTUaBfs7pon44Czf-VnCgeX4UcUTtNnGneefofLfqpfERwM_IdVjRbakOuajwH7w0fQII6DFbzO3OSEHVZLjHGQLZB10DAG9FeCDhxrV5bBmRfpbvbi3dDRgxaVuAHMG36GBkG2pZCyZa93UokQ7HBk4GJu_M-9ZP1PeICFDrCg6LChOeoUQlYs36TIM9pkSxY_P7XvzXV0OIntnzYQTeEVuEzDJQbznwdlaq0vcurCRGJAZGOz"/>
+</div>
+<span class="text-xs font-bold text-red-800 uppercase tracking-widest">Accompagnement</span>
+<h3 class="text-xl font-bold text-primary mt-2 group-hover:underline">Ouverture d'une nouvelle Maison France Services à Revel</h3>
+<p class="text-on-surface-variant text-sm mt-3 leading-relaxed">
+                                Un nouveau point d'accueil pour accompagner les contribuables dans leurs démarches numériques en zone rurale.
+                            </p>
+</article>
+</div>
+</section>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-100 dark:bg-slate-950 w-full border-t border-slate-200 dark:border-slate-800">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 max-w-7xl mx-auto">
+<div class="md:col-span-1 space-y-6">
+<div class="font-serif font-black text-blue-900 dark:text-white leading-tight">
+<p class="text-lg">RÉPUBLIQUE</p>
+<p class="text-lg">FRANÇAISE</p>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm italic">Liberté, Égalité, Fraternité</p>
+</div>
+<div>
+<h4 class="text-blue-900 dark:text-blue-300 font-bold mb-6 text-sm uppercase tracking-wider">Services en ligne</h4>
+<ul class="space-y-3 text-sm font-sans">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-red-800 dark:hover:text-red-400 transition-colors" href="#">impots.gouv.fr</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-red-800 dark:hover:text-red-400 transition-colors" href="#">cadastre.gouv.fr</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-red-800 dark:hover:text-red-400 transition-colors" href="#">amendes.gouv.fr</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-blue-900 dark:text-blue-300 font-bold mb-6 text-sm uppercase tracking-wider">Informations</h4>
+<ul class="space-y-3 text-sm font-sans">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-red-800 dark:hover:text-red-400 transition-colors" href="#">Contact</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-red-800 dark:hover:text-red-400 transition-colors" href="#">Aide et FAQ</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-red-800 dark:hover:text-red-400 transition-colors" href="#">Plan du site</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="text-blue-900 dark:text-blue-300 font-bold mb-6 text-sm uppercase tracking-wider">Juridique</h4>
+<ul class="space-y-3 text-sm font-sans">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-red-800 dark:hover:text-red-400 transition-colors" href="#">Mentions Légales</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-red-800 dark:hover:text-red-400 transition-colors" href="#">Données Personnelles</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-red-800 dark:hover:text-red-400 transition-colors" href="#">Accessibilité</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-12 py-8 border-t border-slate-200/50 flex justify-between items-center text-xs text-slate-400">
+<p>© 2024 Direction générale des Finances publiques</p>
+<div class="flex gap-6">
+<a class="hover:text-blue-900" href="#">Facebook</a>
+<a class="hover:text-blue-900" href="#">Twitter</a>
+<a class="hover:text-blue-900" href="#">LinkedIn</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,115 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: statelier --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "statelier";
+  default: true;
+  color-scheme: light;
+  --color-base-100: #ffffff;
+  --color-base-200: #f3f4f5;
+  --color-base-300: #e8eaec;
+  --color-base-content: #191c1d;
+  --color-primary: #000d2c;
+  --color-primary-content: #ffffff;
+  --color-secondary: #48626e;
+  --color-secondary-content: #ffffff;
+  --color-accent: #280006;
+  --color-accent-content: #ffffff;
+  --color-neutral: #44464f;
+  --color-neutral-content: #f0f1f2;
+  --color-info: #455d95;
+  --color-info-content: #d9e2ff;
+  --color-error: #ba1a1a;
+  --color-error-content: #ffffff;
+  --radius-btn: 0.375rem;
+  --radius-box: 0.5rem;
+  --radius-field: 0.25rem;
+}
+
+@theme {
+  --font-headline: 'Noto Serif', serif;
+  --font-body: 'Public Sans', sans-serif;
+}
+
+/* Extended design tokens from stitch */
+:root {
+  --primary-container: #002157;
+  --on-primary-container: #738ac6;
+  --primary-fixed-dim: #b0c6ff;
+  --secondary-container: #cbe7f5;
+  --on-secondary-container: #4e6874;
+  --tertiary-container: #500014;
+  --on-tertiary-container: #e55e6f;
+  --tertiary-fixed: #ffdadb;
+  --tertiary-fixed-dim: #ffb2b7;
+  --secondary-fixed: #cbe7f5;
+  --secondary-fixed-dim: #afcbd8;
+  --surface: #f8f9fa;
+  --surface-container: #edeeef;
+  --surface-container-low: #f3f4f5;
+  --surface-container-lowest: #ffffff;
+  --surface-container-high: #e7e8e9;
+  --surface-container-highest: #e1e3e4;
+  --on-surface: #191c1d;
+  --on-surface-variant: #44464f;
+  --outline: #757781;
+  --outline-variant: #c4c6d1;
+}
+
+/* Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Statelier interaction patterns */
+.editorial-gradient {
+  background: linear-gradient(135deg, #000d2c 0%, #002157 100%);
+}
+
+.glass-nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Map department interaction */
+.map-department {
+  transition: fill 0.2s ease;
+  cursor: pointer;
+}
+.map-department:hover {
+  fill: #280006;
+}
+
+/* News card image hover */
+.news-image-zoom:hover img {
+  transform: scale(1.05);
+}
+.news-image-zoom img {
+  transition: transform 500ms ease;
+}
+
+/* Slide-up fade-in animation */
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slide-up {
+  animation: slideUpFadeIn 300ms ease-out forwards;
+}
+
+body {
+  font-family: 'Public Sans', sans-serif;
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-family: 'Noto Serif', serif;
+}

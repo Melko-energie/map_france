@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portail de la Fiscalité Territoriale - République Française</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&amp;family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#4e6874",
+                        "on-secondary-fixed-variant": "#304a55",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#001946",
+                        "secondary": "#48626e",
+                        "surface-container": "#edeeef",
+                        "on-tertiary-fixed-variant": "#8a182f",
+                        "outline-variant": "#c4c6d1",
+                        "surface-bright": "#f8f9fa",
+                        "surface-variant": "#e1e3e4",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-primary-container": "#738ac6",
+                        "surface-container-low": "#f3f4f5",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#d9dadb",
+                        "on-primary": "#ffffff",
+                        "on-background": "#191c1d",
+                        "secondary-fixed-dim": "#afcbd8",
+                        "secondary-container": "#cbe7f5",
+                        "tertiary": "#280006",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "error-container": "#ffdad6",
+                        "surface": "#f8f9fa",
+                        "on-tertiary-container": "#e55e6f",
+                        "on-surface": "#191c1d",
+                        "error": "#ba1a1a",
+                        "primary": "#000d2c",
+                        "outline": "#757781",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#2c457c",
+                        "on-secondary-fixed": "#021f29",
+                        "background": "#f8f9fa",
+                        "primary-container": "#002157",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#d9e2ff",
+                        "on-surface-variant": "#44464f",
+                        "inverse-primary": "#b0c6ff",
+                        "surface-tint": "#455d95",
+                        "tertiary-fixed-dim": "#ffb2b7",
+                        "on-tertiary-fixed": "#40000e",
+                        "tertiary-fixed": "#ffdadb",
+                        "tertiary-container": "#500014",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container-high": "#e7e8e9",
+                        "secondary-fixed": "#cbe7f5",
+                        "inverse-surface": "#2e3132"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Public Sans"],
+                        "label": ["Public Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift { transition: background-color 0.3s ease; }
+        .map-department { transition: fill 0.2s ease, transform 0.2s ease; cursor: pointer; }
+        .map-department:hover { fill: #280006; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary-container selection:text-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-8 h-20 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-6">
+<div class="text-xl font-bold uppercase tracking-widest text-blue-900 dark:text-blue-100 font-headline">
+                    République Française
+                </div>
+<nav class="hidden lg:flex items-center gap-8 ml-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300 font-medium" href="#">Fiscalité</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300 font-medium" href="#">Particuliers</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300 font-medium" href="#">Entreprises</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300 font-medium" href="#">Documentation</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<input class="bg-surface-container-low border-none rounded-lg px-4 py-2 w-64 text-sm focus:ring-2 focus:ring-primary" placeholder="Rechercher un service..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2 text-outline" data-icon="search">search</span>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined text-blue-900" data-icon="language">language</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined text-blue-900" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-primary py-24 lg:py-32">
+<div class="absolute inset-0 opacity-10">
+<img class="w-full h-full object-cover" data-alt="Subtle architectural line drawing of the Palais Brongniart in Paris with a sophisticated navy blue overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNP624HSP1T-abTsRUtE5ErNbDuDHCSBQwQyg4Gc-MrTgsrXDezjxk5FTT_n_XV7GSonoRWvK5nROPekVYMwE_luX82xkeYggDZfYkvkJDoddzdYyGoYafmUSuNf_AULm7burgy5gFQL7mR5PT5Mxu93-1qqXLcwdlnTrBiy89Y0qL2CRDBn-tGlP02sshmt3p0w_BTZvjHYH_c6BrAcUKFo6tzD67AF1qR9JuXjwfrqiPAV6A8evwA_ZyMz2Vkpvg_-5BuleopKOx"/>
+</div>
+<div class="max-w-7xl mx-auto px-8 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div>
+<span class="inline-block py-1 px-3 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold tracking-widest uppercase mb-6">
+                        Portail Officiel
+                    </span>
+<h1 class="font-headline text-5xl lg:text-7xl font-black text-white leading-tight tracking-tight mb-8">
+                        Consultez votre Administration Fiscale par Département
+                    </h1>
+<p class="text-xl text-primary-fixed-dim leading-relaxed max-w-xl mb-10">
+                        Accédez en un clic aux services de proximité de la Direction Générale des Finances Publiques. Une interface simplifiée pour vos démarches territoriales.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-white text-primary px-8 py-4 rounded-lg font-bold hover:bg-surface-container-low transition-all flex items-center gap-2">
+                            Commencer l'exploration
+                            <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="border border-white/20 text-white px-8 py-4 rounded-lg font-bold hover:bg-white/10 transition-all">
+                            En savoir plus
+                        </button>
+</div>
+</div>
+<div class="hidden lg:flex justify-end">
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white/5 backdrop-blur-md p-6 rounded-xl border border-white/10">
+<span class="material-symbols-outlined text-secondary-fixed text-4xl mb-4" data-icon="account_balance">account_balance</span>
+<h3 class="text-white font-bold text-lg mb-2">101 Préfectures</h3>
+<p class="text-primary-fixed-dim text-sm">Un maillage complet sur tout le territoire national.</p>
+</div>
+<div class="bg-white/5 backdrop-blur-md p-6 rounded-xl border border-white/10 mt-12">
+<span class="material-symbols-outlined text-secondary-fixed text-4xl mb-4" data-icon="shield_with_heart">shield_with_heart</span>
+<h3 class="text-white font-bold text-lg mb-2">Sécurité Garantie</h3>
+<p class="text-primary-fixed-dim text-sm">Vos données sont protégées par l'État français.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content: The Map -->
+<section class="bg-surface py-24 px-8">
+<div class="max-w-7xl mx-auto text-center mb-16">
+<h2 class="font-headline text-4xl font-bold text-primary mb-4">Cartographie Interactive</h2>
+<p class="text-secondary max-w-2xl mx-auto text-lg leading-relaxed">
+                    Utilisez la carte ci-dessous pour localiser votre centre de fiscalité. Survolez un département pour obtenir les informations de contact immédiates.
+                </p>
+</div>
+<div class="max-w-5xl mx-auto bg-surface-container-lowest p-8 lg:p-16 rounded-2xl shadow-sm border border-outline-variant/10 relative">
+<!-- Map Placeholder Representation -->
+<div class="aspect-[4/3] w-full bg-surface-container-low rounded-xl flex items-center justify-center overflow-hidden relative group">
+<div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-[20rem] text-primary" data-icon="map">map</span>
+</div>
+<!-- Decorative SVG representation of France Map -->
+<svg class="w-full h-full max-h-[600px] relative z-10 drop-shadow-2xl" viewbox="0 0 1000 1000">
+<!-- Abstracted Map Polygons -->
+<g fill="#48626e" stroke="#ffffff" stroke-width="2">
+<!-- Simplified Hexagonal Grid mimicking France shape -->
+<polygon class="map-department" data-dept="Île-de-France (75)" points="500,50 650,150 650,300 500,400 350,300 350,150"></polygon>
+<polygon class="map-department" data-dept="Grand Est (67)" points="650,150 800,250 800,400 650,500 500,400 650,300"></polygon>
+<polygon class="map-department" data-dept="Normandie (76)" points="350,150 500,400 350,550 200,450 200,300"></polygon>
+<polygon class="map-department" data-dept="Centre-Val de Loire (45)" points="500,400 650,500 650,650 500,750 350,650 350,500"></polygon>
+<polygon class="map-department" data-dept="Auvergne-Rhône-Alpes (69)" points="650,500 800,600 800,750 650,850 500,750 650,650"></polygon>
+<polygon class="map-department" data-dept="Nouvelle-Aquitaine (33)" points="350,650 500,750 350,900 200,800 200,650"></polygon>
+<polygon class="map-department" data-dept="Occitanie (31)" points="500,750 650,850 500,950 350,900"></polygon>
+</g>
+</svg>
+<!-- Interaction Overlay -->
+<div class="absolute bottom-8 right-8 bg-primary text-white p-6 rounded-xl shadow-xl max-w-xs transform transition-all group-hover:translate-y-0 translate-y-4 opacity-0 group-hover:opacity-100">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="info">info</span>
+<div>
+<p class="font-bold text-lg mb-1">Sélectionnez une zone</p>
+<p class="text-sm text-primary-fixed-dim">Cliquez sur un département pour consulter les taux d'imposition locaux et les contacts administratifs.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Legend -->
+<div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-outline-variant/20 pt-8">
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 bg-primary rounded-full"></div>
+<span class="text-sm font-medium text-secondary">Siège Régional</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 bg-secondary rounded-full"></div>
+<span class="text-sm font-medium text-secondary">Antenne Départementale</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 bg-tertiary rounded-full"></div>
+<span class="text-sm font-medium text-secondary">Trésorerie Spécialisée</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 bg-outline-variant rounded-full"></div>
+<span class="text-sm font-medium text-secondary">Zone d'Expérimentation</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Information Section -->
+<section class="bg-surface-container-low py-24 px-8">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Large Feature Card -->
+<div class="md:col-span-8 bg-white p-10 rounded-2xl flex flex-col justify-between shadow-sm border border-outline-variant/10">
+<div>
+<h3 class="font-headline text-3xl font-bold text-primary mb-6">Actualités Fiscales Territoriales</h3>
+<div class="space-y-6">
+<div class="flex gap-6 items-start pb-6 border-b border-surface-container">
+<div class="flex-shrink-0 w-16 h-16 bg-secondary-container rounded-lg flex flex-col items-center justify-center text-on-secondary-container font-bold">
+<span class="text-lg">15</span>
+<span class="text-[10px] uppercase">Oct</span>
+</div>
+<div>
+<h4 class="font-bold text-lg text-primary hover:text-tertiary cursor-pointer transition-colors">Réforme de la taxe foncière 2024</h4>
+<p class="text-secondary line-clamp-2">Les nouveaux barèmes applicables pour les propriétés bâties sont désormais consultables par région.</p>
+</div>
+</div>
+<div class="flex gap-6 items-start">
+<div class="flex-shrink-0 w-16 h-16 bg-secondary-container rounded-lg flex flex-col items-center justify-center text-on-secondary-container font-bold">
+<span class="text-lg">22</span>
+<span class="text-[10px] uppercase">Sept</span>
+</div>
+<div>
+<h4 class="font-bold text-lg text-primary hover:text-tertiary cursor-pointer transition-colors">Digitalisation des services en zone rurale</h4>
+<p class="text-secondary line-clamp-2">Ouverture de 15 nouveaux points France Services pour accompagner vos déclarations de revenus.</p>
+</div>
+</div>
+</div>
+</div>
+<button class="mt-8 text-primary font-bold flex items-center gap-2 hover:gap-4 transition-all">
+                            Voir toute l'actualité <span class="material-symbols-outlined">trending_flat</span>
+</button>
+</div>
+<!-- Side Stats/Info -->
+<div class="md:col-span-4 space-y-6">
+<div class="bg-tertiary p-8 rounded-2xl text-white">
+<span class="material-symbols-outlined text-4xl mb-4" data-icon="verified_user">verified_user</span>
+<h3 class="font-bold text-xl mb-2">Espace Professionnel</h3>
+<p class="text-tertiary-fixed text-sm mb-6 leading-relaxed">Gérez la fiscalité locale de votre entreprise avec nos outils dédiés.</p>
+<button class="w-full bg-white text-tertiary py-3 rounded-lg font-bold hover:bg-surface-container-low transition-all">
+                                Se Connecter
+                            </button>
+</div>
+<div class="bg-primary p-8 rounded-2xl text-white relative overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none" data-alt="Close up detail of high-quality cream colored textured paper with a subtle watermark of the French Marianne" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk5DMt8xKDN_RbnbU0UFaMUqXTCmh9bptkyqqAIRtoLnHnq8V1TEMCd55Bie6aDNCzUmd2hpJSo5LBWB8PoTU7AhVibojmT7p0PB_rf2rFk5s0I-khQTt12N2gVLfmINHJzPmzaUIwrB7bB64Dj4tHAKKevpxNHpJMUvCfhJ95SD1dZZ43S5AvYbHl-ghCjmkBGohft0KhR1hpL6NLpRVCqnO4HzsMGKX-wuIbTNakXwqPOt7inKgNT3hpyj1sh7-CdvtQwtCmLNQA"/>
+<div class="relative z-10">
+<h3 class="font-bold text-xl mb-4">Besoin d'aide ?</h3>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="phone_in_talk">phone_in_talk</span>
+<span class="font-bold">0 809 401 401</span>
+</div>
+<p class="text-xs text-primary-fixed-dim">Service gratuit + prix appel. Disponible du lundi au vendredi de 8h30 à 19h.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 px-8">
+<div class="max-w-5xl mx-auto text-center bg-surface-container-lowest border-2 border-primary/5 p-16 rounded-[2rem] shadow-xl">
+<h2 class="font-headline text-4xl font-black text-primary mb-6 italic">L'excellence de l'administration au service du territoire.</h2>
+<p class="text-secondary text-lg mb-10 max-w-2xl mx-auto">
+                    Inscrivez-vous à notre lettre d'information pour rester informé des évolutions fiscales de votre département.
+                </p>
+<form class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
+<input class="flex-grow bg-surface-container-low border-none rounded-xl px-6 py-4 focus:ring-2 focus:ring-primary" placeholder="Votre adresse email" type="email"/>
+<button class="bg-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-primary-container transition-all">
+                        S'abonner
+                    </button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-100 dark:bg-slate-950 w-full border-t border-slate-200 dark:border-slate-800">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 max-w-7xl mx-auto">
+<div class="col-span-1 md:col-span-1">
+<div class="font-serif font-black text-blue-900 dark:text-white text-2xl mb-6">
+                    République<br/>Française
+                </div>
+<p class="text-slate-500 text-sm leading-relaxed">
+                    Liberté<br/>Égalité<br/>Fraternité
+                </p>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-6 uppercase text-xs tracking-widest">Navigation</h4>
+<ul class="space-y-4 text-sm text-slate-500">
+<li><a class="hover:text-red-800 transition-colors" href="#">Mentions Légales</a></li>
+<li><a class="hover:text-red-800 transition-colors" href="#">Accessibilité</a></li>
+<li><a class="hover:text-red-800 transition-colors" href="#">Données Personnelles</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-6 uppercase text-xs tracking-widest">Services</h4>
+<ul class="space-y-4 text-sm text-slate-500">
+<li><a class="hover:text-red-800 transition-colors" href="#">Contact</a></li>
+<li><a class="hover:text-red-800 transition-colors" href="#">Plan du site</a></li>
+<li><a class="hover:text-red-800 transition-colors" href="#">Aide et FAQ</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-6 uppercase text-xs tracking-widest">Partenaires</h4>
+<ul class="space-y-4 text-sm text-slate-500">
+<li><a class="hover:text-red-800 transition-colors" href="#">service-public.fr</a></li>
+<li><a class="hover:text-red-800 transition-colors" href="#">data.gouv.fr</a></li>
+<li><a class="hover:text-red-800 transition-colors" href="#">impots.gouv.fr</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-12 pb-12">
+<p class="text-xs text-slate-400 font-sans leading-relaxed">
+                © 2024 Direction générale des Finances publiques. Tous droits réservés.
+            </p>
+</div>
+</footer>
+</body></html>
