@@ -1,108 +1,136 @@
+import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router'
-import { getDepartment } from '../data/departments'
 import Hero from '../components/Hero'
-import Sidebar from '../components/Sidebar'
-import StatCard from '../components/StatCard'
-import ContactCard from '../components/ContactCard'
-import NewsCard from '../components/NewsCard'
+import { api } from '../lib/api'
+
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+}
+
+function BreakdownCard({ title, entries }) {
+  const sorted = Object.entries(entries).sort((a, b) => b[1] - a[1])
+  return (
+    <div className="m-card p-6">
+      <h3 className="m-label mb-4">{title}</h3>
+      {sorted.length === 0 && <p className="text-sm text-[var(--m-ink-50)] italic">Aucune donnée</p>}
+      <ul className="space-y-2">
+        {sorted.map(([label, count]) => (
+          <li key={label} className="flex justify-between items-baseline gap-4 text-sm">
+            <span className="text-[var(--m-ink-70)]">{label}</span>
+            <span className="font-display text-xl shrink-0">{count}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
 
 export default function DepartmentPage() {
   const { id } = useParams()
-  const dept = getDepartment(id)
+  const [dept, setDept] = useState(null)
+  const [error, setError] = useState(null)
 
-  if (!dept) {
+  useEffect(() => {
+    setDept(null)
+    setError(null)
+    api(`/api/departments/${id}`).then(setDept).catch((e) => setError(e))
+  }, [id])
+
+  if (error) {
     return (
-      <div className="flex flex-col items-center justify-center py-32 text-center">
-        <span className="material-symbols-outlined text-6xl text-secondary mb-4">error</span>
-        <h1 className="text-3xl font-headline font-bold text-primary mb-2">Département introuvable</h1>
-        <p className="text-secondary mb-8">Le département « {id} » n'existe pas.</p>
-        <Link to="/" className="btn btn-primary">Retour à la carte</Link>
+      <div className="flex flex-col items-center justify-center py-32 text-center px-8">
+        <span className="material-symbols-outlined text-6xl text-[var(--m-ink-30)] mb-4">error</span>
+        <h1 className="font-display text-3xl mb-2">
+          {error.status === 404 ? 'Département introuvable' : 'Erreur de chargement'}
+        </h1>
+        <p className="text-[var(--m-ink-70)] mb-8">{error.message}</p>
+        <Link to="/" className="m-btn">Retour à la carte</Link>
       </div>
     )
   }
 
-  const breadcrumbs = [
-    { label: 'Accueil', href: '/' },
-    { label: 'Directions Départementales', href: '/' },
-    { label: `${dept.name} (${dept.id})` },
-  ]
+  if (!dept) {
+    return <div className="py-32 text-center text-[var(--m-ink-50)]">Chargement…</div>
+  }
 
-  const quickLinks = [
-    { icon: 'mail', label: 'Nous contacter' },
-    { icon: 'calendar_month', label: 'Prendre RDV' },
-    { icon: 'map', label: 'Carte des centres' },
-  ]
+  const hasContact = dept.contactName || dept.contactAddress || dept.contactPhone || dept.contactEmail
 
   return (
     <>
       <Hero
-        breadcrumbs={breadcrumbs}
-        title="Administration Fiscale"
-        subtitle={`de la ${dept.name}`}
-        description={`Direction départementale des Finances publiques (DDFiP) de la ${dept.name} au service des citoyens et du développement économique régional.`}
-        decorativeIcon="account_balance"
+        breadcrumbs={[
+          { label: 'Accueil', href: '/' },
+          { label: 'Départements', href: '/' },
+          { label: `${dept.name} (${dept.code})` },
+        ]}
+        eyebrow="Refus CEE"
+        title={dept.name}
+        subtitle={`${dept.stats.total} refus recensé${dept.stats.total > 1 ? 's' : ''}`}
+        description={dept.note || undefined}
       />
 
-      <section className="max-w-7xl mx-auto px-8 py-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <Sidebar
-          director={dept.director}
-          secretariat={dept.secretariat}
-          quickLinks={quickLinks}
-          alert={dept.alert}
-        />
+      <section className="max-w-5xl mx-auto px-8 pb-24 space-y-12">
+        {/* Répartitions */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <BreakdownCard title="Refus par motif" entries={dept.stats.byMotif} />
+          <BreakdownCard title="Refus par type d'opération" entries={dept.stats.byTypeOperation} />
+        </div>
 
-        <div className="lg:col-span-9 space-y-20">
-          {/* Stats */}
-          <section>
-            <h2 className="text-3xl font-bold text-primary mb-8 border-l-4 border-accent pl-6">Indicateurs de la Région</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <StatCard label="Contribuables" value={dept.stats.taxpayers} subtitle={dept.stats.taxpayersSubtitle} />
-              <StatCard label="Recouvrement Annuel" value={dept.stats.collection} subtitle={dept.stats.collectionSubtitle} variant="dark" />
-              <StatCard label="Taux de Satisfaction" value={dept.stats.satisfaction} subtitle={dept.stats.satisfactionSubtitle} />
+        {/* Liste des refus */}
+        <div>
+          <h2 className="font-display text-3xl mb-6">
+            Détail des <span className="italic text-[var(--m-foret)]">refus</span>
+          </h2>
+          {dept.refusals.length === 0 ? (
+            <p className="text-[var(--m-ink-50)] italic">Aucun refus enregistré pour ce département.</p>
+          ) : (
+            <div className="m-card overflow-x-auto">
+              <table className="table w-full">
+                <thead>
+                  <tr>
+                    <th className="m-label">Date</th>
+                    <th className="m-label">Motif</th>
+                    <th className="m-label">Type d'opération</th>
+                    <th className="m-label">Commentaire</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dept.refusals.map((r) => (
+                    <tr key={r.id}>
+                      <td className="whitespace-nowrap">{formatDate(r.date)}</td>
+                      <td>{r.motif}</td>
+                      <td className="font-brand-mono text-xs text-[var(--m-saphir)]">{r.typeOperation}</td>
+                      <td className="text-[var(--m-ink-70)]">{r.commentaire || '—'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-          </section>
+          )}
+        </div>
 
-          {/* Contacts & Hours */}
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-2xl font-bold text-primary mb-8">Centres de Contact Principaux</h2>
-              <div className="space-y-8">
-                {dept.contacts.map((contact, i) => (
-                  <ContactCard key={i} name={contact.name} address={contact.address} />
-                ))}
-              </div>
+        {/* Contact + actualités */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {hasContact && (
+            <div className="m-card p-6">
+              <h3 className="m-label mb-4">Contact Melko</h3>
+              {dept.contactName && <p className="font-display text-xl mb-2">{dept.contactName}</p>}
+              {dept.contactAddress && <p className="text-sm text-[var(--m-ink-70)] whitespace-pre-line mb-2">{dept.contactAddress}</p>}
+              {dept.contactPhone && <p className="text-sm font-brand-mono">{dept.contactPhone}</p>}
+              {dept.contactEmail && <p className="text-sm font-brand-mono text-[var(--m-saphir)]">{dept.contactEmail}</p>}
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-sm">
-              <h2 className="text-2xl font-bold text-primary mb-6">Horaires d'Ouverture</h2>
-              <ul className="space-y-4 text-sm">
-                {dept.hours.map((h, i) => (
-                  <li key={i} className={`flex justify-between pb-2 ${i < dept.hours.length - 1 ? 'border-b border-[var(--outline-variant)]/10' : ''} ${h.isError ? 'text-error font-medium' : ''}`}>
-                    <span className={h.isError ? '' : 'text-secondary'}>{h.label}</span>
-                    <span className="font-bold">{h.value}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 text-xs text-[var(--on-surface-variant)] italic leading-relaxed">
-                * Les horaires peuvent varier durant les périodes de congés scolaires et jours fériés.
-              </p>
-            </div>
-          </section>
-
-          {/* News */}
+          )}
           {dept.news.length > 0 && (
-            <section>
-              <div className="flex justify-between items-end mb-8">
-                <h2 className="text-3xl font-bold text-primary">Actualités Fiscales {dept.id}</h2>
-                <a href="#" className="text-sm font-bold text-secondary hover:text-primary transition-colors flex items-center gap-1">
-                  Toute l'actualité <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                </a>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {dept.news.map((article, i) => (
-                  <NewsCard key={i} tag={article.tag} title={article.title} excerpt={article.excerpt} image={article.image} />
-                ))}
-              </div>
-            </section>
+            <div className="m-card p-6 space-y-5">
+              <h3 className="m-label">Actualités</h3>
+              {dept.news.map((n) => (
+                <article key={n.id}>
+                  <span className="font-brand-mono text-[10px] uppercase tracking-widest text-[var(--m-foret)]">{n.tag}</span>
+                  <h4 className="font-display text-lg mt-1">{n.title}</h4>
+                  <p className="text-sm text-[var(--m-ink-70)] leading-relaxed">{n.body}</p>
+                </article>
+              ))}
+            </div>
           )}
         </div>
       </section>
