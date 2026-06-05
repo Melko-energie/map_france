@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router'
 import { api } from '../../lib/api'
 
@@ -8,6 +8,12 @@ export default function LoginPage() {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    api('/api/auth/me')
+      .then(() => navigate('/admin', { replace: true }))
+      .catch(() => {}) // pas connecté : rester sur le formulaire
+  }, [navigate])
 
   async function onSubmit(e) {
     e.preventDefault()

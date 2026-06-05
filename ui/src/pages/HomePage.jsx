@@ -4,6 +4,9 @@ import Hero from '../components/Hero'
 import FranceMap from '../components/FranceMap'
 import MapLegend from '../components/MapLegend'
 import { api } from '../lib/api'
+import { choroplethColor } from '../lib/choropleth'
+
+const OVERSEAS_CODES = ['971', '972', '973', '974', '976']
 
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -54,6 +57,29 @@ export default function HomePage() {
             <FranceMap counts={counts} />
           </div>
           <MapLegend max={max} />
+          {data && (
+            <div className="mt-8">
+              <div className="m-label text-center mb-4">Outre-mer</div>
+              <div className="flex flex-wrap justify-center gap-3">
+                {data.departments
+                  .filter((d) => OVERSEAS_CODES.includes(d.code))
+                  .map((d) => (
+                    <Link
+                      key={d.code}
+                      to={`/department/${d.code}`}
+                      className="m-stage px-4 py-2 flex items-center gap-3 text-sm hover:shadow-md transition-shadow"
+                    >
+                      <span
+                        className="w-3 h-3 rounded-full shadow-[inset_0_0_0_0.5px_var(--m-ink-12)]"
+                        style={{ background: choroplethColor(d.refusalCount, max) }}
+                      />
+                      <span>{d.name}</span>
+                      <span className="font-brand-mono text-xs text-[var(--m-ink-50)]">{d.refusalCount}</span>
+                    </Link>
+                  ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
