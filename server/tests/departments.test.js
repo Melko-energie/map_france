@@ -44,6 +44,14 @@ describe('GET /api/departments/:code', () => {
     const res = await request(app).get('/api/departments/XX')
     expect(res.status).toBe(404)
   })
+
+  it('returns zeroed stats for a department without refusals', async () => {
+    const res = await request(app).get('/api/departments/75')
+    expect(res.status).toBe(200)
+    expect(res.body.stats.total).toBe(0)
+    expect(res.body.stats.byMotif).toEqual({})
+    expect(res.body.stats.byTypeOperation).toEqual({})
+  })
 })
 
 describe('PUT /api/departments/:code', () => {
@@ -69,5 +77,13 @@ describe('PUT /api/departments/:code', () => {
     const agent = await loggedInAgent()
     const res = await agent.put('/api/departments/XX').send({ note: 'x' })
     expect(res.status).toBe(404)
+  })
+
+  it('clears a field when null is sent explicitly', async () => {
+    const agent = await loggedInAgent()
+    await agent.put('/api/departments/31').send({ contactPhone: '05 61 00 00 00' })
+    const cleared = await agent.put('/api/departments/31').send({ contactPhone: null })
+    expect(cleared.status).toBe(200)
+    expect(cleared.body.contactPhone).toBeNull()
   })
 })

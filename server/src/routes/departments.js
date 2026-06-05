@@ -20,7 +20,7 @@ router.get('/', async (req, res, next) => {
       take: 1,
     })
     const latestRefusals = await prisma.refusal.findMany({
-      orderBy: { date: 'desc' },
+      orderBy: [{ date: 'desc' }, { id: 'desc' }],
       take: 5,
       include: { department: { select: { name: true } } },
     })
@@ -47,7 +47,7 @@ router.get('/:code', async (req, res, next) => {
     const dept = await prisma.department.findUnique({
       where: { code: req.params.code },
       include: {
-        refusals: { orderBy: { date: 'desc' } },
+        refusals: { orderBy: [{ date: 'desc' }, { id: 'desc' }] },
         news: { orderBy: { createdAt: 'desc' } },
       },
     })
@@ -72,6 +72,8 @@ const updateSchema = z.object({
   contactEmail: z.string().nullish(),
 })
 
+// Sémantique PATCH volontaire : les champs absents (undefined) sont conservés,
+// les champs envoyés à null sont effacés. La route reste en PUT par cohérence avec le plan.
 router.put('/:code', requireAdmin, async (req, res, next) => {
   try {
     const parsed = updateSchema.safeParse(req.body)

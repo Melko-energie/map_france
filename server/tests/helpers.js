@@ -16,6 +16,7 @@ export async function resetData() {
 
 export async function loggedInAgent() {
   const agent = request.agent(app)
-  await agent.post('/api/auth/login').send({ email: 'admin@test.com', password: 'secret123' })
+  const res = await agent.post('/api/auth/login').send({ email: 'admin@test.com', password: 'secret123' })
+  if (res.status !== 200) throw new Error(`loggedInAgent : échec du login (${res.status})`)
   return agent
 }
