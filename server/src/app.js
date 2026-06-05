@@ -1,6 +1,7 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import authRouter from './routes/auth.js'
+import departmentsRouter from './routes/departments.js'
 
 const app = express()
 
@@ -10,6 +11,7 @@ app.use(cookieParser())
 app.get('/api/health', (req, res) => res.json({ ok: true }))
 
 app.use('/api/auth', authRouter)
+app.use('/api/departments', departmentsRouter)
 
 // 404 — keep this LAST; later tasks mount routers above it
 app.use((req, res) => res.status(404).json({ error: 'Route introuvable' }))
