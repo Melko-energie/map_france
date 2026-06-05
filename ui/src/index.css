@@ -1,61 +1,152 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: statelier --default;
+  themes: melko --default;
 }
 
 @plugin "daisyui/theme" {
-  name: "statelier";
+  name: "melko";
   default: true;
   color-scheme: light;
-  --color-base-100: #ffffff;
-  --color-base-200: #f3f4f5;
-  --color-base-300: #e8eaec;
-  --color-base-content: #191c1d;
-  --color-primary: #000d2c;
-  --color-primary-content: #ffffff;
-  --color-secondary: #48626e;
-  --color-secondary-content: #ffffff;
-  --color-accent: #280006;
-  --color-accent-content: #ffffff;
-  --color-neutral: #44464f;
-  --color-neutral-content: #f0f1f2;
-  --color-info: #455d95;
-  --color-info-content: #d9e2ff;
-  --color-error: #ba1a1a;
-  --color-error-content: #ffffff;
-  --radius-btn: 0.375rem;
-  --radius-box: 0.5rem;
-  --radius-field: 0.25rem;
+  --color-base-100: #FAF8F4;
+  --color-base-200: #F2EDE4;
+  --color-base-300: #E6DFD2;
+  --color-base-content: #0E1A24;
+  --color-primary: #3F8A3D;
+  --color-primary-content: #FAF8F4;
+  --color-secondary: #1B5F8C;
+  --color-secondary-content: #FAF8F4;
+  --color-accent: #0E1A24;
+  --color-accent-content: #FAF8F4;
+  --color-neutral: #0E1A24;
+  --color-neutral-content: #FAF8F4;
+  --color-info: #4E83AB;
+  --color-info-content: #FAF8F4;
+  --color-success: #2A5C29;
+  --color-success-content: #FAF8F4;
+  --color-warning: #B45309;
+  --color-warning-content: #FAF8F4;
+  --color-error: #BA1A1A;
+  --color-error-content: #FFFFFF;
+  --radius-box: 1.125rem;
+  --radius-btn: 999px;
+  --radius-field: 0.625rem;
 }
 
 @theme {
-  --font-headline: 'Noto Serif', serif;
-  --font-body: 'Public Sans', sans-serif;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Inter', Helvetica, Arial, sans-serif;
+  --font-brand-mono: 'JetBrains Mono', monospace;
 }
 
-/* Extended design tokens from stitch */
+/* === Palette Melko (ADN de marque) === */
 :root {
-  --primary-container: #002157;
-  --on-primary-container: #738ac6;
-  --primary-fixed-dim: #b0c6ff;
-  --secondary-container: #cbe7f5;
-  --on-secondary-container: #4e6874;
-  --tertiary-container: #500014;
-  --on-tertiary-container: #e55e6f;
-  --tertiary-fixed: #ffdadb;
-  --tertiary-fixed-dim: #ffb2b7;
-  --secondary-fixed: #cbe7f5;
-  --secondary-fixed-dim: #afcbd8;
-  --surface: #f8f9fa;
-  --surface-container: #edeeef;
-  --surface-container-low: #f3f4f5;
-  --surface-container-lowest: #ffffff;
-  --surface-container-high: #e7e8e9;
-  --surface-container-highest: #e1e3e4;
-  --on-surface: #191c1d;
-  --on-surface-variant: #44464f;
-  --outline: #757781;
-  --outline-variant: #c4c6d1;
+  --m-foret: #3F8A3D;
+  --m-foret-dark: #2A5C29;
+  --m-foret-light: #6FA86D;
+  --m-saphir: #1B5F8C;
+  --m-saphir-dark: #0E3D5C;
+  --m-saphir-light: #4E83AB;
+  --m-encre: #0E1A24;
+  --m-papier: #FAF8F4;
+
+  --m-ink-90: rgba(14, 26, 36, 0.90);
+  --m-ink-70: rgba(14, 26, 36, 0.70);
+  --m-ink-50: rgba(14, 26, 36, 0.50);
+  --m-ink-30: rgba(14, 26, 36, 0.30);
+  --m-ink-12: rgba(14, 26, 36, 0.12);
+  --m-ink-08: rgba(14, 26, 36, 0.08);
+  --m-ink-05: rgba(14, 26, 36, 0.05);
+  --m-ink-02: rgba(14, 26, 36, 0.025);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--m-papier);
+  color: var(--m-encre);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Texture papier (derrière le contenu : le contenu est dans un wrapper z-1) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.055 0 0 0 0 0.102 0 0 0 0 0.141 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+  z-index: 0;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* Carte Melko : fond encre-02, hairline interne, lift au survol */
+.m-card {
+  background: var(--m-ink-02);
+  box-shadow: inset 0 0 0 0.5px var(--m-ink-08);
+  border-radius: 18px;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.m-card-hover:hover {
+  box-shadow: inset 0 0 0 0.5px var(--m-foret), 0 4px 18px rgba(14, 26, 36, 0.04);
+  transform: translateY(-1px);
+}
+
+/* Surface papier interne (comme le logo-stage de l'ADN) */
+.m-stage {
+  background: var(--m-papier);
+  box-shadow: inset 0 0 0 0.5px var(--m-ink-05);
+  border-radius: 12px;
+}
+
+/* Micro-label mono majuscules */
+.m-label {
+  font-family: var(--font-brand-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--m-ink-50);
+}
+
+/* Bouton pilule encre (ADN : .continue) */
+.m-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--m-encre);
+  color: var(--m-papier);
+  border: 0;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.m-btn:hover {
+  background: var(--m-foret-dark);
+}
+.m-btn-foret { background: var(--m-foret); }
+.m-btn-foret:hover { background: var(--m-foret-dark); }
+
+.glass-nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Départements de la carte */
+.map-department {
+  transition: fill 0.2s ease;
+  cursor: pointer;
+}
+.map-department:hover {
+  fill: var(--m-saphir) !important;
 }
 
 /* Material Symbols */
@@ -63,53 +154,11 @@
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-/* Statelier interaction patterns */
-.editorial-gradient {
-  background: linear-gradient(135deg, #000d2c 0%, #002157 100%);
-}
-
-.glass-nav {
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-/* Map department interaction */
-.map-department {
-  transition: fill 0.2s ease;
-  cursor: pointer;
-}
-.map-department:hover {
-  fill: #280006;
-}
-
-/* News card image hover */
-.news-image-zoom:hover img {
-  transform: scale(1.05);
-}
-.news-image-zoom img {
-  transition: transform 500ms ease;
-}
-
-/* Slide-up fade-in animation */
+/* Animation d'entrée */
 @keyframes slideUpFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 .animate-slide-up {
   animation: slideUpFadeIn 300ms ease-out forwards;
-}
-
-body {
-  font-family: 'Public Sans', sans-serif;
-  margin: 0;
-}
-
-h1, h2, h3 {
-  font-family: 'Noto Serif', serif;
 }

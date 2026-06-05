@@ -4,7 +4,7 @@ import Footer from './components/Footer'
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[var(--surface)] text-[var(--on-surface)] flex flex-col">
+    <div className="min-h-screen flex flex-col relative z-[1]">
       <Header />
       <main className="pt-20 flex-1">
         <Outlet />
