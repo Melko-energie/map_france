@@ -14,7 +14,9 @@ app.use((req, res) => res.status(404).json({ error: 'Route introuvable' }))
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   console.error(err)
-  res.status(500).json({ error: 'Erreur interne du serveur' })
+  if (res.headersSent) return next(err)
+  const status = err.status ?? err.statusCode ?? 500
+  res.status(status).json({ error: status < 500 ? 'Requête invalide' : 'Erreur interne du serveur' })
 })
 
 export default app
