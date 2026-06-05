@@ -29,6 +29,8 @@ model Refusal {
   commentaire    String?
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
+
+  @@index([departmentCode])
 }
 
 model NewsItem {
@@ -39,6 +41,8 @@ model NewsItem {
   title          String
   body           String
   createdAt      DateTime   @default(now())
+
+  @@index([departmentCode])
 }
 
 model AdminUser {
