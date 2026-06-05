@@ -1,5 +1,9 @@
 import jwt from 'jsonwebtoken'
 
+if (!process.env.JWT_SECRET) {
+  throw new Error('La variable d\'environnement JWT_SECRET est requise')
+}
+
 export const COOKIE_NAME = 'melko_admin'
 
 export function signToken(adminId) {

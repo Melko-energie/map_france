@@ -42,6 +42,11 @@ describe('auth', () => {
     expect(res.status).toBe(401)
   })
 
+  it('rejects /me with a malformed token', async () => {
+    const res = await request(app).get('/api/auth/me').set('Cookie', 'melko_admin=not.a.token')
+    expect(res.status).toBe(401)
+  })
+
   it('logout clears the session', async () => {
     const agent = request.agent(app)
     await agent.post('/api/auth/login').send({ email: 'admin@test.com', password: 'secret123' })

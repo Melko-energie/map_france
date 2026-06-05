@@ -6,6 +6,12 @@ import { COOKIE_NAME, signToken, requireAdmin } from '../auth.js'
 
 const router = Router()
 
+const COOKIE_OPTIONS = {
+  httpOnly: true,
+  sameSite: 'lax',
+  secure: process.env.NODE_ENV === 'production',
+}
+
 const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1),
@@ -21,8 +27,7 @@ router.post('/login', async (req, res, next) => {
       return res.status(401).json({ error: 'Identifiants incorrects' })
     }
     res.cookie(COOKIE_NAME, signToken(admin.id), {
-      httpOnly: true,
-      sameSite: 'lax',
+      ...COOKIE_OPTIONS,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     })
     res.json({ email: admin.email })
@@ -32,7 +37,7 @@ router.post('/login', async (req, res, next) => {
 })
 
 router.post('/logout', (req, res) => {
-  res.clearCookie(COOKIE_NAME)
+  res.clearCookie(COOKIE_NAME, COOKIE_OPTIONS)
   res.json({ ok: true })
 })
 
