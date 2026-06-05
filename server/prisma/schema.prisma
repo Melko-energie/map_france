@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Department {
+  code           String     @id
+  name           String
+  note           String?
+  contactName    String?
+  contactAddress String?
+  contactPhone   String?
+  contactEmail   String?
+  refusals       Refusal[]
+  news           NewsItem[]
+}
+
+model Refusal {
+  id             Int        @id @default(autoincrement())
+  departmentCode String
+  department     Department @relation(fields: [departmentCode], references: [code])
+  date           DateTime
+  motif          String
+  typeOperation  String
+  commentaire    String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model NewsItem {
+  id             Int        @id @default(autoincrement())
+  departmentCode String
+  department     Department @relation(fields: [departmentCode], references: [code])
+  tag            String
+  title          String
+  body           String
+  createdAt      DateTime   @default(now())
+}
+
+model AdminUser {
+  id           Int    @id @default(autoincrement())
+  email        String @unique
+  passwordHash String
+}
