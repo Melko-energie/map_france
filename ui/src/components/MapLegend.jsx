@@ -1,4 +1,4 @@
-import { CHORO_SCALE, CHORO_ZERO } from './FranceMap'
+import { CHORO_SCALE, CHORO_ZERO } from '../lib/choropleth'
 
 export default function MapLegend({ max = 0 }) {
   const buckets = [{ color: CHORO_ZERO, label: 'Aucun refus' }]

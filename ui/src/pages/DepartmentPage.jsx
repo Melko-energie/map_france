@@ -27,14 +27,21 @@ function BreakdownCard({ title, entries }) {
 
 export default function DepartmentPage() {
   const { id } = useParams()
-  const [dept, setDept] = useState(null)
-  const [error, setError] = useState(null)
+  const [{ dept, error, fetchedId }, setState] = useState({ dept: null, error: null, fetchedId: null })
 
   useEffect(() => {
-    setDept(null)
-    setError(null)
-    api(`/api/departments/${id}`).then(setDept).catch((e) => setError(e))
+    let cancelled = false
+    api(`/api/departments/${id}`)
+      .then((data) => { if (!cancelled) setState({ dept: data, error: null, fetchedId: id }) })
+      .catch((e) => { if (!cancelled) setState({ dept: null, error: e, fetchedId: id }) })
+    return () => { cancelled = true }
   }, [id])
+
+  const isLoading = fetchedId !== id
+
+  if (isLoading) {
+    return <div className="py-32 text-center text-[var(--m-ink-50)]">Chargement…</div>
+  }
 
   if (error) {
     return (
