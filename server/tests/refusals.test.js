@@ -79,4 +79,16 @@ describe('refusals CRUD', () => {
     const again = await agent.delete(`/api/refusals/${created.body.id}`)
     expect(again.status).toBe(404)
   })
+
+  it('rejects invalid date with 400', async () => {
+    expect((await agent.post('/api/refusals').send({ ...valid, date: 'garbage' })).status).toBe(400)
+    expect((await agent.post('/api/refusals').send({ ...valid, date: null })).status).toBe(400)
+    expect((await agent.post('/api/refusals').send({ ...valid, date: 0 })).status).toBe(400)
+  })
+
+  it('404s on non-numeric id', async () => {
+    expect((await agent.put('/api/refusals/abc').send(valid)).status).toBe(404)
+    expect((await agent.put('/api/refusals/1abc').send(valid)).status).toBe(404)
+    expect((await agent.delete('/api/refusals/abc')).status).toBe(404)
+  })
 })

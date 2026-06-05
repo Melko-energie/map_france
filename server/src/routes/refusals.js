@@ -8,7 +8,8 @@ router.use(requireAdmin)
 
 const refusalSchema = z.object({
   departmentCode: z.string().min(1),
-  date: z.coerce.date(),
+  // Chaîne ISO AAAA-MM-JJ stricte : z.coerce.date() seul accepterait null/0/false (epoch 1970)
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).pipe(z.coerce.date()),
   motif: z.string().min(1),
   typeOperation: z.string().min(1),
   commentaire: z.string().nullish(),
@@ -36,6 +37,8 @@ router.get('/', async (req, res, next) => {
     const pageSize = 20
     const where = {}
     if (req.query.department) where.departmentCode = req.query.department
+    // NB : LIKE de SQLite est insensible à la casse pour l'ASCII uniquement ;
+    // les accents (é/É…) restent sensibles à la casse.
     if (req.query.motif) where.motif = { contains: req.query.motif }
     const [items, total] = await Promise.all([
       prisma.refusal.findMany({
@@ -66,8 +69,8 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    const id = Number.parseInt(req.params.id, 10)
-    if (Number.isNaN(id)) return res.status(404).json({ error: 'Refus introuvable' })
+    const id = Number(req.params.id)
+    if (!Number.isInteger(id) || id < 1) return res.status(404).json({ error: 'Refus introuvable' })
     const existing = await prisma.refusal.findUnique({ where: { id } })
     if (!existing) return res.status(404).json({ error: 'Refus introuvable' })
     const data = await validateBody(req, res)
@@ -81,8 +84,8 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    const id = Number.parseInt(req.params.id, 10)
-    if (Number.isNaN(id)) return res.status(404).json({ error: 'Refus introuvable' })
+    const id = Number(req.params.id)
+    if (!Number.isInteger(id) || id < 1) return res.status(404).json({ error: 'Refus introuvable' })
     const existing = await prisma.refusal.findUnique({ where: { id } })
     if (!existing) return res.status(404).json({ error: 'Refus introuvable' })
     await prisma.refusal.delete({ where: { id } })
